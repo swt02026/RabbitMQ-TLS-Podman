@@ -1,0 +1,2 @@
+openssl req -x509 -new -nodes -sha256 -utf8 -days 3650 -newkey rsa:2048 -keyout certs/server.key -out certs/server.crt -config ssl.conf
+openssl pkcs12 -export -in certs/server.crt -inkey certs/server.key -out certs/server.pfx

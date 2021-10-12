@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rabbitmq_tls
+spec:
+  containers:
+  - name: rabbitmq
+    image: docker.io/library/rabbitmq:3.9.7-management
+  - name: tcp_tls_proxy
+    image: nginx:1.21.3
+    ports:
+      - containerPort: 5671
+        hostPort: 5672
+        protocol: TCP
+      - containerPort: 15671
+        hostPort: 15672
+        protocol: TCP
+    volumeMounts:
+      - name: nginx_config
+        mountPath: /etc/nginx/
+        subPath: nginx.conf
+      - name: nginx_cert
+        mountPath: /etc/ssl/certs
+  volumes:
+    - name: nginx_config
+      hostPath:
+        path: /ap/rabbitmq_compose/
+    - name: nginx_cert
+      hostPath:
+        path: /ap/rabbitmq_compose/certs
