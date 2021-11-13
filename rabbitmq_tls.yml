@@ -9,10 +9,16 @@ spec:
   - name: tcp_tls_proxy
     image: nginx:1.21.3
     ports:
-      - containerPort: 5671
+      - containerPort: 5672
         hostPort: 5672
         protocol: TCP
+      - containerPort: 5671
+        hostPort: 5671
+        protocol: TCP
       - containerPort: 15671
+        hostPort: 15671
+        protocol: TCP
+      - containerPort: 15672
         hostPort: 15672
         protocol: TCP
     volumeMounts:
